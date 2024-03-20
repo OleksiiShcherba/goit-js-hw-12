@@ -1,8 +1,20 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-const renderImages = data => {
-  const images_element = document.querySelector('.images');
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+const images_element = document.querySelector('.images');
+const lightbox = new SimpleLightbox('.images li a', {
+  captionDelay: 250,
+  captionsData: 'alt',
+});
+
+export const loadStart = () => {
+  images_element.innerHTML = '<span class="loader"></span>';
+};
+
+export const renderImages = data => {
   images_element.innerHTML = '';
 
   if (data.hits.length === 0) {
@@ -11,12 +23,10 @@ const renderImages = data => {
       position: 'topRight',
     });
   } else {
-    images_element.innerHTML =
-      '<span class="load-title">Loading images, please wait...</span>';
     const image_elements = data.hits
       .map(hit => {
-        return `<div class="image">
-          <img src="${hit.webformatURL}" alt="${hit.tags}">
+        return `<li class="image">
+          <a href="${hit.largeImageURL}"><img src="${hit.webformatURL}" alt="${hit.tags}"></a>
           <ul class="info">
             <li class="info-block">
               <p3>Likes</p3>
@@ -35,12 +45,11 @@ const renderImages = data => {
               <span>${hit.downloads}</span>
             </li>
           </ul>
-        </div>`;
+        </li>`;
       })
       .join('');
 
     images_element.innerHTML = image_elements;
+    lightbox.refresh();
   }
 };
-
-export default renderImages;
