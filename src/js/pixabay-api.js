@@ -20,7 +20,7 @@ const pixabayApi = (search_word, render_function) => {
       render_function(data);
     })
     .catch(error => {
-      console.log('Error: ', error);
+      console.log('Error:  ', error);
     });
 };
 
