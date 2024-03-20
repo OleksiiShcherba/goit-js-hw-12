@@ -1,12 +1,18 @@
-const renderImages = data => {
-  if (data.hits.length === 0) {
-  } else {
-    const body_element = document.querySelector('body');
-    const images_element = document.querySelector('.images');
-    if(images_element){
-      images_element.remove();
-    }
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
+const renderImages = data => {
+  const images_element = document.querySelector('.images');
+  images_element.innerHTML = '';
+
+  if (data.hits.length === 0) {
+    iziToast.error({
+      message: `Sorry, there are no images matching your search query. Please, try again!`,
+      position: 'topRight',
+    });
+  } else {
+    images_element.innerHTML =
+      '<span class="load-title">Loading images, please wait...</span>';
     const image_elements = data.hits
       .map(hit => {
         return `<div class="image">
@@ -33,7 +39,7 @@ const renderImages = data => {
       })
       .join('');
 
-    body_element.insertAdjacentHTML('beforeend', `<div class="images">${image_elements}</div>`);
+    images_element.innerHTML = image_elements;
   }
 };
 
