@@ -132,13 +132,11 @@ button:hover {
   align-items: center;
 }
 
-#load_more_place {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 #load_more_button {
+  display: block;
+
+  margin: 0 auto;
+
   border-radius: 8px;
   padding: 8px 16px;
   width: 125px;

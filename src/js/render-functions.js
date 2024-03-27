@@ -7,6 +7,8 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const images_element = document.querySelector('.images');
 const loader_element = document.querySelector('#loader_place');
 const load_more_element = document.querySelector('#load_more_place');
+const load_more_button = document.querySelector('#load_more_button');
+
 const lightbox = new SimpleLightbox('.images li a', {
   captionDelay: 250,
   captionsData: 'alt',
@@ -19,14 +21,12 @@ export const loadFinish = () => {
   loader_element.innerHTML = '';
 };
 
-export const displayLoadMore = () => {
-  load_more_element.innerHTML =
-    '<button id="load_more_button">Load more</button>';
+export const displayLoadMore = load_more_action => {
+  load_more_button.innerHTML = '';
 };
 
 export const hideLoadMore = () => {
-  load_more_element.innerHTML =
-    '<button id="load_more_button">Load more</button>';
+  load_more_element.innerHTML = '';
 };
 
 export const renderImages = (data, new_request = true) => {
