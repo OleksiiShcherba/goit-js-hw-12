@@ -21,11 +21,11 @@ export const loadFinish = () => {
 };
 
 export const displayLoadMore = () => {
-  load_more_button.classList.remove('is-hidden');
+  load_more_button.classList.remove('visually-hidden');
 };
 
 export const hideLoadMore = () => {
-  load_more_button.classList.add('is-hidden');
+  load_more_button.classList.add('visually-hidden');
 };
 
 export const renderImages = (data, new_request = true) => {
