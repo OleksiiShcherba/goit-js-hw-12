@@ -5,17 +5,34 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const images_element = document.querySelector('.images');
+const loader_element = document.querySelector('#loader_place');
+const load_more_element = document.querySelector('#load_more_place');
 const lightbox = new SimpleLightbox('.images li a', {
   captionDelay: 250,
   captionsData: 'alt',
 });
 
 export const loadStart = () => {
-  images_element.innerHTML = '<span class="loader"></span>';
+  loader_element.innerHTML = '<span class="loader"></span>';
+};
+export const loadFinish = () => {
+  loader_element.innerHTML = '';
 };
 
-export const renderImages = data => {
-  images_element.innerHTML = '';
+export const displayLoadMore = () => {
+  load_more_element.innerHTML =
+    '<button id="load_more_button">Load more</button>';
+};
+
+export const hideLoadMore = () => {
+  load_more_element.innerHTML =
+    '<button id="load_more_button">Load more</button>';
+};
+
+export const renderImages = (data, new_request = true) => {
+  if (new_request) {
+    images_element.innerHTML = '';
+  }
 
   if (data.hits.length === 0) {
     iziToast.error({
@@ -49,7 +66,7 @@ export const renderImages = data => {
       })
       .join('');
 
-    images_element.innerHTML = image_elements;
+    images_element.innerHTML += image_elements;
     lightbox.refresh();
   }
 };
