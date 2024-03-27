@@ -7,6 +7,8 @@ const search_button = document.querySelector('#search-button');
 search_button.addEventListener('click', () => {
   if (search_element.value.trim().length != 0) {
     loadStart();
-    pixabayApi(search_element.value.trim(), renderImages);
+    pixabayApi(search_element.value.trim()).then(response => {
+      renderImages(response.data);
+    });
   }
 });
