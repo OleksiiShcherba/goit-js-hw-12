@@ -11,7 +11,6 @@ const search_element = document.querySelector('#search-image');
 const search_button = document.querySelector('#search-button');
 const load_more_button = document.querySelector('#load_more_button');
 const per_page = 15;
-
 let page = 1;
 
 const get_new_images = (new_request = true) => {
