@@ -41,7 +41,7 @@ const get_new_images = (new_request = true) => {
         displayNoMoreForLoad();
       }
 
-      scroll();
+      if (!new_request) scroll();
     });
   }
 };
