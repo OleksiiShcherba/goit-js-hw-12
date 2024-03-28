@@ -37,6 +37,19 @@ export const hideNoMoreForLoad = () => {
   no_more_for_load_elemet.classList.add('visually-hidden');
 };
 
+export const scroll = () => {
+  const image_element = document.querySelector('.image');
+
+  if (image_element) {
+    const image_element_height = image_element.getBoundingClientRect().height;
+
+    window.scrollBy({
+      top: image_element_height * 2,
+      behavior: 'smooth',
+    });
+  }
+};
+
 export const renderImages = (data, new_request = true) => {
   if (new_request) {
     images_element.innerHTML = '';

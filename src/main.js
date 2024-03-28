@@ -7,6 +7,7 @@ import {
   hideLoadMore,
   displayNoMoreForLoad,
   hideNoMoreForLoad,
+  scroll,
 } from './js/render-functions.js';
 
 const search_element = document.querySelector('#search-image');
@@ -36,9 +37,11 @@ const get_new_images = (new_request = true) => {
         displayed_count < data.totalHits
       ) {
         displayLoadMore();
-      } else {
+      } else if (!new_request) {
         displayNoMoreForLoad();
       }
+
+      scroll();
     });
   }
 };
