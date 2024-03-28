@@ -7,6 +7,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const images_element = document.querySelector('.images');
 const loader_element = document.querySelector('#loader_place');
 const load_more_button = document.querySelector('#load_more_button');
+const no_more_for_load_elemet = document.querySelector('#no_more_for_load');
 
 const lightbox = new SimpleLightbox('.images li a', {
   captionDelay: 250,
@@ -26,6 +27,14 @@ export const displayLoadMore = () => {
 
 export const hideLoadMore = () => {
   load_more_button.classList.add('visually-hidden');
+};
+
+export const displayNoMoreForLoad = () => {
+  no_more_for_load_elemet.classList.remove('visually-hidden');
+};
+
+export const hideNoMoreForLoad = () => {
+  no_more_for_load_elemet.classList.add('visually-hidden');
 };
 
 export const renderImages = (data, new_request = true) => {
