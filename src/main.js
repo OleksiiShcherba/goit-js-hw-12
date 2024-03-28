@@ -14,18 +14,18 @@ const per_page = 15;
 
 let page = 1;
 
-const search_action = () => {
-  page = 1;
+const get_new_images = (new_request = true) => {
   hideLoadMore();
 
   if (search_element.value.trim().length != 0) {
     loadStart();
+
     pixabayApi(search_element.value.trim(), page, per_page).then(response => {
       const displayed_count = page * per_page;
       const data = response.data;
 
       loadFinish();
-      renderImages(data);
+      renderImages(data, new_request);
 
       if (
         data.hits.length > 0 &&
@@ -38,29 +38,14 @@ const search_action = () => {
   }
 };
 
+const search_action = () => {
+  page = 1;
+  get_new_images();
+};
+
 const load_more_action = () => {
   page++;
-
-  if (search_element.value.trim().length != 0) {
-    loadStart();
-    hideLoadMore();
-
-    pixabayApi(search_element.value.trim(), page, per_page).then(response => {
-      const displayed_count = page * per_page;
-      const data = response.data;
-
-      loadFinish();
-      renderImages(data, false);
-
-      if (
-        data.hits.length > 0 &&
-        data.totalHits > 0 &&
-        displayed_count < data.totalHits
-      ) {
-        displayLoadMore();
-      }
-    });
-  }
+  get_new_images(false);
 };
 
 search_button.addEventListener('click', search_action);
