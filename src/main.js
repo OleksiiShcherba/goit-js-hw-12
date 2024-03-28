@@ -43,6 +43,8 @@ const load_more_action = () => {
 
   if (search_element.value.trim().length != 0) {
     loadStart();
+    hideLoadMore();
+
     pixabayApi(search_element.value.trim(), page, per_page).then(response => {
       const displayed_count = page * per_page;
       const data = response.data;
@@ -51,11 +53,11 @@ const load_more_action = () => {
       renderImages(data, false);
 
       if (
-        data.hits.length == 0 &&
-        data.totalHits == 0 &&
-        displayed_count > data.totalHits
+        data.hits.length > 0 &&
+        data.totalHits > 0 &&
+        displayed_count < data.totalHits
       ) {
-        hideLoadMore();
+        displayLoadMore();
       }
     });
   }
