@@ -6,8 +6,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const images_element = document.querySelector('.images');
 const loader_element = document.querySelector('#loader_place');
-const load_more_button = document.querySelector('#load_more_button');
-const no_more_for_load_elemet = document.querySelector('#no_more_for_load');
+const load_more_form = document.querySelector('#load_more_form');
 
 const lightbox = new SimpleLightbox('.images li a', {
   captionDelay: 250,
@@ -22,19 +21,18 @@ export const loadFinish = () => {
 };
 
 export const displayLoadMore = () => {
-  load_more_button.classList.remove('visually-hidden');
+  load_more_form.classList.remove('visually-hidden');
 };
 
 export const hideLoadMore = () => {
-  load_more_button.classList.add('visually-hidden');
+  load_more_form.classList.add('visually-hidden');
 };
 
 export const displayNoMoreForLoad = () => {
-  no_more_for_load_elemet.classList.remove('visually-hidden');
-};
-
-export const hideNoMoreForLoad = () => {
-  no_more_for_load_elemet.classList.add('visually-hidden');
+  iziToast.info({
+    message: `We're sorry, but you've reached the end of search results!`,
+    position: 'topRight',
+  });
 };
 
 export const scroll = () => {

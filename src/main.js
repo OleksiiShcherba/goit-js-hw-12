@@ -6,39 +6,39 @@ import {
   displayLoadMore,
   hideLoadMore,
   displayNoMoreForLoad,
-  hideNoMoreForLoad,
   scroll,
 } from './js/render-functions.js';
 
-const search_element = document.querySelector('#search-image');
-const search_button = document.querySelector('#search-button');
-const load_more_button = document.querySelector('#load_more_button');
+const search_form = document.querySelector('#search-form');
+const load_more_form = document.querySelector('#load_more_form');
 const per_page = 15;
 
 let page = 1;
+let search_value = '';
 
 const get_new_images = (new_request = true) => {
   hideLoadMore();
-  hideNoMoreForLoad();
 
-  if (search_element.value.trim().length != 0) {
+  if (search_value.length != 0) {
     loadStart();
 
-    pixabayApi(search_element.value.trim(), page, per_page).then(response => {
+    pixabayApi(search_value, page, per_page).then(response => {
       const displayed_count = page * per_page;
       const data = response.data;
 
       loadFinish();
       renderImages(data, new_request);
 
-      if (
-        data.hits.length > 0 &&
-        data.totalHits > 0 &&
-        displayed_count < data.totalHits
-      ) {
-        displayLoadMore();
-      } else if (!new_request) {
-        displayNoMoreForLoad();
+      if (data.hits.length > 0 && data.totalHits > 0) {
+        if (displayed_count < data.totalHits) {
+          displayLoadMore();
+        } else {
+          displayNoMoreForLoad();
+        }
+
+        if (new_request) {
+          search_form.text.value = '';
+        }
       }
 
       if (!new_request) scroll();
@@ -46,15 +46,18 @@ const get_new_images = (new_request = true) => {
   }
 };
 
-const search_action = () => {
+const search_action = event => {
   page = 1;
+  event.preventDefault();
+  search_value = event.target.text.value.trim();
   get_new_images();
 };
 
-const load_more_action = () => {
+const load_more_action = event => {
   page++;
+  event.preventDefault();
   get_new_images(false);
 };
 
-search_button.addEventListener('click', search_action);
-load_more_button.addEventListener('click', load_more_action);
+search_form.addEventListener('submit', search_action);
+load_more_form.addEventListener('submit', load_more_action);

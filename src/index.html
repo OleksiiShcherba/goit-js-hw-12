@@ -14,17 +14,21 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <div class="input-section">
-      <input type="text" placeholder="Search images..." id="search-image" />
-      <button id="search-button">Search</button>
-    </div>
+    <form class="input-section" id="search-form">
+      <input
+        type="text"
+        name="text"
+        placeholder="Search images..."
+        id="search-image"
+      />
+      <button type="submit" id="search-button">Search</button>
+    </form>
     <ul class="images"></ul>
 
     <div id="loader_place"></div>
-    <button id="load_more_button" class="visually-hidden">Load more</button>
-    <div id="no_more_for_load" class="visually-hidden">
-      We're sorry, but you've reached the end of search results.
-    </div>
+    <form class="visually-hidden" id="load_more_form">
+      <button id="load_more_button">Load more</button>
+    </form>
     <script type="module" src="./main.js"></script>
   </body>
 </html>
