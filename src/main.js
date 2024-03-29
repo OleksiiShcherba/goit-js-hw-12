@@ -18,39 +18,39 @@ let search_value = '';
 
 const get_new_images = (new_request = true) => {
   hideLoadMore();
+  loadStart();
 
-  if (search_value.length != 0) {
-    loadStart();
+  pixabayApi(search_value, page, per_page).then(response => {
+    const displayed_count = page * per_page;
+    const data = response.data;
 
-    pixabayApi(search_value, page, per_page).then(response => {
-      const displayed_count = page * per_page;
-      const data = response.data;
+    loadFinish();
+    renderImages(data, new_request);
 
-      loadFinish();
-      renderImages(data, new_request);
-
-      if (data.hits.length > 0 && data.totalHits > 0) {
-        if (displayed_count < data.totalHits) {
-          displayLoadMore();
-        } else {
-          displayNoMoreForLoad();
-        }
-
-        if (new_request) {
-          search_form.text.value = '';
-        }
+    if (data.hits.length > 0 && data.totalHits > 0) {
+      if (displayed_count < data.totalHits) {
+        displayLoadMore();
+      } else {
+        displayNoMoreForLoad();
       }
 
-      if (!new_request) scroll();
-    });
-  }
+      if (new_request) {
+        search_form.text.value = '';
+      }
+    }
+
+    if (!new_request) scroll();
+  });
 };
 
 const search_action = event => {
-  page = 1;
   event.preventDefault();
-  search_value = event.target.text.value.trim();
-  get_new_images();
+
+  if (event.target.text.value.trim().length > 0) {
+    page = 1;
+    search_value = event.target.text.value.trim();
+    get_new_images();
+  }
 };
 
 const load_more_action = event => {
